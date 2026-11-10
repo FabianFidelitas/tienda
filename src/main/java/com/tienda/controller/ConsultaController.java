@@ -47,15 +47,28 @@ public class ConsultaController {
         model.addAttribute("precioSup", precioSup);
         return "/consultas/listado";
     }
-
+    
     @PostMapping("/consultaSQL")
     public String consultaSQL(@RequestParam() BigDecimal precioInf,
             @RequestParam() BigDecimal precioSup,
             Model model) {
-        var productos = productoService.consultaSQL(precioInf, precioSup);
+        var productos = productoService.consultaDerivada(precioInf, precioSup);
         model.addAttribute("productos", productos);
         model.addAttribute("precioInf", precioInf);
         model.addAttribute("precioSup", precioSup);
         return "/consultas/listado";
     }
+
+    @PostMapping("/consultaPractica")
+    public String consultaPractica(@RequestParam() BigDecimal existenciasInf,
+            @RequestParam() BigDecimal existenciasSup,
+            Model model) {
+        var productos = productoService.consultaSQLPractica(existenciasInf, existenciasSup);
+        model.addAttribute("productos", productos);
+        model.addAttribute("existenciasInf", existenciasInf);
+        model.addAttribute("existenciasSup", existenciasSup);
+        return "/consultas/listado";
+    }
+    
+    
 }
